@@ -1,0 +1,33 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rita/1.3.94/rita.min.js" integrity="sha512-s1MboB1NnxiSs1uPLkyV3sLyklC2S/snjuz1gHEfO9sJTKLIfzccCcJQxiAe2uMYSGZQijX/cXShZCWGWSU28g==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <input type="file" name="inputfile"
+        id="inputfile"> 
+    <br> 
+
+    <pre id="output"></pre> 
+
+    <script type="text/javascript"> 
+    function generatePoem(contents, num_sentences) {
+            var rm = new RiMarkov(4);
+            rm.loadText(contents);
+            var sentences = rm.generateSentences(num_sentences);    
+            for (var i = 0; i < sentences.length; i++) {
+                document.getElementById('output') 
+                    .textContent+=sentences[i]+'\n'; 
+                
+            }
+        }
+    document.getElementById('inputfile') 
+        .addEventListener('change', function() { 
+        var fr=new FileReader(); 
+        fr.onload=function(){ 
+            generatePoem(fr.result, 20);
+        } 
+        fr.readAsText(this.files[0]); 
+        
+        
+    }) 
+    </script> 
+</body>
